@@ -3,7 +3,7 @@
   height: 13em;
   border-radius: 3%;
   margin-top: 0.3em;
-  background: #9E74C1;
+  background: rgb(158, 116, 193);
   background: linear-gradient(to bottom right,#00C3B1, #9E74C1);
 
   display: flex;
@@ -13,30 +13,4 @@
   align-content: space-around;
 }
 
-.game-card {
-  width: 2.5em;
-  height: 2.5em;
-  text-align: center;
-  border: 1px solid rgb(255,255,255);
-  background-color: rgb(0, 196, 177);
-  border-radius: 5%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.far, .fas {
-  color: rgb(255,255,255);
-}
-
-.fa-star, .fa-redo {
-  color: rgb(0, 0, 0);
-}
-
-
-.front, .back {
-  width: 2.5em;
-  height: 2.5em;
-  
-}

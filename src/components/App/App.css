@@ -9,10 +9,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
-
 
 .game-title {
   font-size: 1.0em;

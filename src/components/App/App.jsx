@@ -8,7 +8,7 @@ import Game from '../Game';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.props = this.state;
   }
   render() {
     return (
