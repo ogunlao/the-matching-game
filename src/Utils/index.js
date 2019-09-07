@@ -37,7 +37,11 @@ let randomClassGenerator = () => {
   gameIcons = shuffle(gameIcons);
   let boxes = [] ;
   for (let i = 1; i <= 16; i++) {
-    boxes.push({ "id": i, "class": gameIcons[i-1], "open": false })
+    boxes.push(
+      { "id": i, 
+        "class": gameIcons[i-1], 
+        "open": false
+      })
   }
   return boxes;
 }

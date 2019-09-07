@@ -11,13 +11,6 @@ export default class App extends Component {
     firstGuessedBox:null
   };
 
-  // check previous box
-
-  //compare with newbox
-
-  //switch both of keep both
-
-
   compareOpenBoxes = (box)=> {
     let firstGuessedBox = this.state.firstGuessedBox;
     // check if a box if previously opened
@@ -25,7 +18,7 @@ export default class App extends Component {
       this.setState({firstGuessedBox:box})
     } else {
       if (firstGuessedBox.class === box.class ){
-        return;
+        this.setState({firstGuessedBox:null})
       } else {
           const boxes = this.state.boxes.map(stateBox=>{
             if ((stateBox === firstGuessedBox) || (stateBox === box)){
@@ -36,15 +29,19 @@ export default class App extends Component {
 
           this.setState({ boxes, firstGuessedBox:null });
         }
-      }
+    }
   }
+
   handleToggle = (box) => {
     const boxes = [...this.state.boxes];
     const index = boxes.indexOf(box);
     boxes[index].open = !box.open;
     this.setState({ boxes });
-
-    this.compareOpenBoxes(box);
+    setTimeout(
+      ()=>this.compareOpenBoxes(box),
+      700
+    );
+    
   };
 
   render() {
