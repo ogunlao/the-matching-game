@@ -5,10 +5,17 @@ import './GameBox.css';
 
 export default class GameBox extends Component {
   render() {
-    return (
-      <div className="game-box">
-        <i className={this.props.class}></i>
+    const box = this.props.box;
+    return box.open ? (
+      <div className="game-box" onClick={() => this.props.onToggle(box)}>
+        <i className={box.class}></i>
       </div>
+    ) : (
+      <div
+        key={box.id}
+        className="game-box close"
+        onClick={() => this.props.onToggle(box)}
+      />
     );
   }
 }

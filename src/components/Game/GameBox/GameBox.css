@@ -11,13 +11,10 @@
   align-items: center;
 }
 
-.far, .fas {
+.far, .fas, .fab {
   color: rgb(255,255,255);
 }
 
-
-.front, .back {
-  width: 2.5em;
-  height: 2.5em;
-  
+.close {
+  background-color: rgb(44, 56, 65);
 }

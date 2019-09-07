@@ -23,17 +23,21 @@ function shuffle(array) {
 
 let gameIcons =
   ["far fa-paper-plane",
-    "far fa-paper-plane",
     "fas fa-anchor",
-    "fas fa-anchor",
-    "", "", "", "", "", "", "", "", "", "", "", ""
+    "fab fa-500px",
+    "fab fa-accusoft",
+    "fas fa-air-freshener",
+    "fab fa-angellist",
+    "fab fa-android",
+    "fab fa-apple"
   ];
+  gameIcons = gameIcons.concat(gameIcons);
 
 let randomClassGenerator = () => {
   gameIcons = shuffle(gameIcons);
   let boxes = [] ;
   for (let i = 1; i <= 16; i++) {
-    boxes.push({ "id": i, "class": gameIcons[i-1] })
+    boxes.push({ "id": i, "class": gameIcons[i-1], "open": false })
   }
   return boxes;
 }
