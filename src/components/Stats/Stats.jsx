@@ -12,8 +12,8 @@ export default class Stats extends Component {
             <i className="far fa-star"></i>
           </span>
           <span className="game-stats__time">01:21</span>
-          <span className="game-stats__moves">8 Moves</span>
-          <span className="game-stats__replay">
+          <span className="game-stats__moves">{this.props.numOfMoves} Moves</span>
+          <span className="game-stats__replay" onClick={this.props.onReset}>
             <i className="fas fa-redo"></i>
           </span>
         </div>

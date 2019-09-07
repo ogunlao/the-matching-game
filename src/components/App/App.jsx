@@ -8,7 +8,8 @@ import boxes from '../../Utils';
 export default class App extends Component {
   state = {
     boxes,
-    firstGuessedBox:null
+    firstGuessedBox:null,
+    numOfMoves: 0
   };
 
   compareOpenBoxes = (box)=> {
@@ -34,15 +35,30 @@ export default class App extends Component {
 
   handleToggle = (box) => {
     const boxes = [...this.state.boxes];
+    let numOfMoves = this.state.numOfMoves;
+    numOfMoves++
     const index = boxes.indexOf(box);
     boxes[index].open = !box.open;
-    this.setState({ boxes });
+    this.setState({ boxes, numOfMoves });
     setTimeout(
       ()=>this.compareOpenBoxes(box),
       700
     );
-    
   };
+
+  handleReset = ()=>{
+    const boxes = this.state.boxes.map((box)=>
+    {
+      box.open=false;
+      return box;
+    })
+    this.setState(
+      {
+        boxes, 
+        firstGuessedBox:false,
+        numOfMoves:0
+      });
+  }
 
   render() {
     const boxes = this.state.boxes;
@@ -50,8 +66,14 @@ export default class App extends Component {
     return (
       <div className="container">
         <h1 className="game-title">Matching Game</h1>
-        <Stats />
-        <Game boxes={boxes} onToggle={this.handleToggle} />
+        <Stats 
+          numOfMoves={this.state.numOfMoves}
+          onReset={this.handleReset}
+        />
+        <Game 
+          boxes={boxes} 
+          onToggle={this.handleToggle} 
+        />
       </div>
     );
   }
