@@ -1,0 +1,8 @@
+.game-stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 15em;
+  font-size: 0.5em;
+}
