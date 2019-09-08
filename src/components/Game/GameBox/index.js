@@ -1,3 +1,1 @@
-import GameBox from './GameBox';
-
-export default GameBox;
+export {default} from './GameBox';

@@ -1,7 +1,2 @@
-import timer from './timer';
-import boxes from './createGameBoxes';
-
-
-export {timer};
-
-export default boxes;
+export {default as timer} from './timer';
+export {default} from './createGameBoxes';
