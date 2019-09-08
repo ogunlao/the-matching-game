@@ -8,33 +8,56 @@ import boxes, { timer } from "../../Utils";
 class App extends Component {
   state = {
     boxes: boxes(),
-    firstGuessedBox: null,
+    startGame: false,
     numOfMoves: 0,
     gameOver: false,
     numOpenBoxes: 0,
+    previousGuessedBox: null,
     timerId: 0
   };
 
-  compareOpenBoxes = box => {
-    let firstGuessedBox = this.state.firstGuessedBox;
-    // check if a box is previously opened
-    if (!firstGuessedBox) {
-      this.setState({ firstGuessedBox: box });
-    } else {
-      if (firstGuessedBox.class === box.class) {
-        this.setState({ firstGuessedBox: null });
-      } else {
-        const boxes = this.state.boxes.map(stateBox => {
-          if (stateBox === firstGuessedBox || stateBox === box) {
-            stateBox.open = false;
-          }
-          return stateBox;
-        });
-
-        this.setState({ boxes, firstGuessedBox: null });
+  updateGame = (openStateBoxes, previousGuessedBox, openBox) => {
+      const boxes = [...this.state.boxes];
+      const indexOpenBox = boxes.indexOf(openBox);
+      boxes[indexOpenBox].open = false;
+      if (previousGuessedBox) {
+        const indexPrevBox = boxes.indexOf(previousGuessedBox);
+        boxes[indexPrevBox].open = false;
       }
-    }
+      this.setState({
+        boxes,
+        previousGuessedBox: null
+      });
+    
   };
+
+  checkIfSimilarBoxOpen = (openBox) => {
+    const previousGuessedBox = this.state.previousGuessedBox;
+
+    if (this.state.startGame) {
+      const openStateBoxes = this.state.boxes.filter(box=>
+        (box.id !== openBox.id) && (box.class === openBox.class) && box.open
+      )
+      /* this.setState({
+        previousGuessedBox : openBox,
+      }) */
+      console.log(openStateBoxes)
+      if (openStateBoxes === undefined || openStateBoxes.length === 0){
+        this.updateGame(
+          openStateBoxes, 
+          previousGuessedBox, 
+          openBox
+          );
+      }
+    } else {
+      this.setState(
+        {
+          startGame : true,
+          previousGuessedBox : openBox,
+        });
+    }
+    
+  }
 
   getNumOpenBoxes = boxes => {
     const openBoxes = boxes.filter(box => box.open === true);
@@ -52,7 +75,7 @@ class App extends Component {
       numOfMoves,
       numOpenBoxes: this.getNumOpenBoxes(boxes)
     });
-    setTimeout(() => this.compareOpenBoxes(box), 800);
+    setTimeout(() => this.checkIfSimilarBoxOpen(box), 800);
   };
 
   handleReset = () => {
@@ -62,7 +85,8 @@ class App extends Component {
       firstGuessedBox: false,
       numOfMoves: 0,
       numOpenBoxes: 0,
-      timerId: timer
+      timerId: timer,
+      startGame: false,
     });
     
   };
