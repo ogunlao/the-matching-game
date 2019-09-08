@@ -3,76 +3,86 @@ import React, { Component } from "react";
 import "./App.css";
 import Stats from "../Stats";
 import Game from "../Game";
-import boxes from '../../Utils';
+import boxes, { timer } from "../../Utils";
 
 export default class App extends Component {
   state = {
-    boxes,
-    firstGuessedBox:null,
-    numOfMoves: 0
+    boxes: boxes(),
+    firstGuessedBox: null,
+    numOfMoves: 0,
+    gameOver: false,
+    numOpenBoxes: 0
   };
 
-  compareOpenBoxes = (box)=> {
+  compareOpenBoxes = box => {
     let firstGuessedBox = this.state.firstGuessedBox;
-    // check if a box if previously opened
-    if (!firstGuessedBox){
-      this.setState({firstGuessedBox:box})
+    // check if a box is previously opened
+    if (!firstGuessedBox) {
+      this.setState({ firstGuessedBox: box });
     } else {
-      if (firstGuessedBox.class === box.class ){
-        this.setState({firstGuessedBox:null})
+      if (firstGuessedBox.class === box.class) {
+        this.setState({ firstGuessedBox: null });
       } else {
-          const boxes = this.state.boxes.map(stateBox=>{
-            if ((stateBox === firstGuessedBox) || (stateBox === box)){
-              stateBox.open=false
-            }
-            return stateBox;
-          });
+        const boxes = this.state.boxes.map(stateBox => {
+          if (stateBox === firstGuessedBox || stateBox === box) {
+            stateBox.open = false;
+          }
+          return stateBox;
+        });
 
-          this.setState({ boxes, firstGuessedBox:null });
-        }
+        this.setState({ boxes, firstGuessedBox: null });
+      }
     }
-  }
+  };
 
-  handleToggle = (box) => {
+  getNumOpenBoxes = boxes => {
+    const openBoxes = boxes.filter(box => box.open === true);
+    return openBoxes.length;
+  };
+
+  handleToggle = box => {
     const boxes = [...this.state.boxes];
     let numOfMoves = this.state.numOfMoves;
-    numOfMoves++
+    numOfMoves++;
     const index = boxes.indexOf(box);
     boxes[index].open = !box.open;
-    this.setState({ boxes, numOfMoves });
-    setTimeout(
-      ()=>this.compareOpenBoxes(box),
-      700
-    );
+    this.setState({
+      boxes,
+      numOfMoves,
+      numOpenBoxes: this.getNumOpenBoxes(boxes)
+    });
+    setTimeout(() => this.compareOpenBoxes(box), 800);
   };
 
-  handleReset = ()=>{
-    const boxes = this.state.boxes.map((box)=>
-    {
-      box.open=false;
-      return box;
-    })
-    this.setState(
-      {
-        boxes, 
-        firstGuessedBox:false,
-        numOfMoves:0
-      });
+  handleReset = () => {
+    timer(true);
+    this.setState({
+      boxes: boxes(),
+      firstGuessedBox: false,
+      numOfMoves: 0,
+      numOpenBoxes: 0
+    });
+  };
+
+  handleGameOver = () => {
+    this.setState({ gameOver: true });
+  };
+
+  componentDidMount() {
+    timer();
   }
 
   render() {
-    const boxes = this.state.boxes;
-
+    const { boxes, numOfMoves, numOpenBoxes } = this.state;
     return (
       <div className="container">
         <h1 className="game-title">Matching Game</h1>
-        <Stats 
-          numOfMoves={this.state.numOfMoves}
+        <Stats numOfMoves={numOfMoves} onReset={this.handleReset} />
+        <Game
+          boxes={boxes}
+          onToggle={this.handleToggle}
+          numOpenBoxes={numOpenBoxes}
           onReset={this.handleReset}
-        />
-        <Game 
-          boxes={boxes} 
-          onToggle={this.handleToggle} 
         />
       </div>
     );

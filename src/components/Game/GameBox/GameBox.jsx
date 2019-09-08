@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
-import './GameBox.css';
+import React, { Component } from "react";
+import "./GameBox.css";
 
 // class="far fa-paper-plane"
 
 export default class GameBox extends Component {
+  /**
+   * handleToggle = () => this.props.onToggle(box)
+   */
   render() {
     const box = this.props.box;
     return box.open ? (
