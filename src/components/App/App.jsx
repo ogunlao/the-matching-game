@@ -5,7 +5,7 @@ import Stats from "../Stats";
 import Game from "../Game";
 import boxes, { timer } from "../../Utils";
 
-export default class App extends Component {
+class App extends Component {
   state = {
     boxes: boxes(),
     firstGuessedBox: null,
@@ -88,3 +88,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default  App;

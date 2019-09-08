@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import GameBox from '../Game/GameBox';
 import './Game.css';
 
-export default class Game extends Component {
-  render() {
-    const { boxes, numOpenBoxes, onReset } = this.props;
-
+const Game =  ({ boxes, numOpenBoxes, onReset, onToggle }) => {
     const renderedBoxes = boxes.map(box => (
       <GameBox 
         key={box.id} 
         box={box} 
-        onToggle={this.props.onToggle} 
+        onToggle={onToggle} 
       />
     ));
 
@@ -32,21 +29,6 @@ export default class Game extends Component {
       </React.Fragment>
     );
   }
-}
 
-/** 
- * const Game = ({boxes, onToggle}) => {
- * const boxes = boxes.map(box => (
-      <GameBox key={box.id} box={box} onToggle={onToggle} />
-    ));
- *  return (
- *  
 
-    return (
-      <div className="game-container">
-        {boxes}
-      </div>
-    );
- * )
- * }
- */
+  export default Game;

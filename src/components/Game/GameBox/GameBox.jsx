@@ -1,24 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 import "./GameBox.css";
 
-// class="far fa-paper-plane"
-
-export default class GameBox extends Component {
-  /**
-   * handleToggle = () => this.props.onToggle(box)
-   */
-  render() {
-    const box = this.props.box;
+const GameBox = ({key, box, onToggle}) => {
     return box.open ? (
-      <div className="game-box" onClick={() => this.props.onToggle(box)}>
+      <div className="game-box" onClick={()=>onToggle(box)}>
         <i className={box.class}></i>
       </div>
     ) : (
       <div
-        key={box.id}
+        key={key}
         className="game-box close"
-        onClick={() => this.props.onToggle(box)}
+        onClick={() => onToggle(box)}
       />
     );
   }
-}
+
+
+export default GameBox;

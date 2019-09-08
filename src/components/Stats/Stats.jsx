@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './Stats.css';
 
 
-export default class Stats extends Component {
-  render() {
+const Stats = ({numOfMoves, onReset}) => {
     return (
         <div className="game-stats">
           <span className="game-stats__star">
@@ -16,11 +15,12 @@ export default class Stats extends Component {
             :
             <span id="seconds"></span>
           </span>
-          <span className="game-stats__moves">{this.props.numOfMoves} Moves</span>
-          <span className="game-stats__replay" onClick={this.props.onReset}>
+          <span className="game-stats__moves">{numOfMoves} Moves</span>
+          <span className="game-stats__replay" onClick={onReset}>
             <i className="fas fa-redo"></i>
           </span>
         </div>
     );
   }
-}
+
+export default Stats;
