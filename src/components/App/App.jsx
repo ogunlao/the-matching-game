@@ -11,7 +11,8 @@ class App extends Component {
     firstGuessedBox: null,
     numOfMoves: 0,
     gameOver: false,
-    numOpenBoxes: 0
+    numOpenBoxes: 0,
+    timerId: 0
   };
 
   compareOpenBoxes = box => {
@@ -55,13 +56,15 @@ class App extends Component {
   };
 
   handleReset = () => {
-    timer(true);
+    clearTimeout(this.state.timerId);
     this.setState({
       boxes: boxes(),
       firstGuessedBox: false,
       numOfMoves: 0,
-      numOpenBoxes: 0
+      numOpenBoxes: 0,
+      timerId: timer
     });
+    
   };
 
   handleGameOver = () => {
@@ -69,7 +72,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    timer();
+    this.setState({timerId : timer}); // Start time
   }
 
   render() {
