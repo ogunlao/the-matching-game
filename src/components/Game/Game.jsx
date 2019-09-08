@@ -2,7 +2,7 @@ import React from 'react';
 import GameBox from '../Game/GameBox';
 import './Game.css';
 
-const Game =  ({ boxes, numOpenBoxes, onReset, onToggle }) => {
+const Game =  ({ boxes, numOpenBoxes, numOfMoves, onReset, onToggle }) => {
     const renderedBoxes = boxes.map(box => (
       <GameBox 
         key={box.id} 
@@ -20,6 +20,7 @@ const Game =  ({ boxes, numOpenBoxes, onReset, onToggle }) => {
             <div className="blur game-container">{renderedBoxes}</div>
             <div className="game-over">
               Game Over
+              <p className="game-moves">in {numOfMoves} Moves</p>
               <p className="game-stats__replay" onClick={onReset}>
                 <i className="fas fa-redo"></i>
               </p>
@@ -29,6 +30,5 @@ const Game =  ({ boxes, numOpenBoxes, onReset, onToggle }) => {
       </React.Fragment>
     );
   }
-
 
   export default Game;

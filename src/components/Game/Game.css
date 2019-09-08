@@ -37,3 +37,8 @@
   margin: auto;
   color: white;
 }
+
+.game-moves {
+  font-size: 0.6em;
+  margin: 0 auto;
+}

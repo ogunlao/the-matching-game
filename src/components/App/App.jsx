@@ -86,6 +86,7 @@ class App extends Component {
           onToggle={this.handleToggle}
           numOpenBoxes={numOpenBoxes}
           onReset={this.handleReset}
+          numOfMoves={numOfMoves}
         />
       </div>
     );
