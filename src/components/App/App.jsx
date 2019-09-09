@@ -16,7 +16,7 @@ class App extends Component {
     timerId: 0
   };
 
-  updateGame = (openStateBoxes, previousGuessedBox, openBox) => {
+  updateGame = (previousGuessedBox, openBox) => {
       const boxes = [...this.state.boxes];
       const indexOpenBox = boxes.indexOf(openBox);
       boxes[indexOpenBox].open = false;
@@ -34,17 +34,15 @@ class App extends Component {
   checkIfSimilarBoxOpen = (openBox) => {
     const previousGuessedBox = this.state.previousGuessedBox;
 
+    // If game has started, check for similar box else start game
     if (this.state.startGame) {
+      // Look for box with similar icon and check if it's open
       const openStateBoxes = this.state.boxes.filter(box=>
         (box.id !== openBox.id) && (box.class === openBox.class) && box.open
       )
-      /* this.setState({
-        previousGuessedBox : openBox,
-      }) */
-      console.log(openStateBoxes)
+      // If it isnt open, close both boxes
       if (openStateBoxes === undefined || openStateBoxes.length === 0){
         this.updateGame(
-          openStateBoxes, 
           previousGuessedBox, 
           openBox
           );
@@ -67,14 +65,16 @@ class App extends Component {
   handleToggle = box => {
     const boxes = [...this.state.boxes];
     let numOfMoves = this.state.numOfMoves;
-    numOfMoves++;
+    numOfMoves++; // Increase  number of boves
     const index = boxes.indexOf(box);
     boxes[index].open = !box.open;
+    // Toggle box, and perform other operations
     this.setState({
       boxes,
       numOfMoves,
       numOpenBoxes: this.getNumOpenBoxes(boxes)
     });
+    // Delay so box doesnt switch back without showing the player the icon
     setTimeout(() => this.checkIfSimilarBoxOpen(box), 800);
   };
 
