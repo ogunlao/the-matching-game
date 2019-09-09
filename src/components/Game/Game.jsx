@@ -13,7 +13,7 @@ const Game =  ({ boxes, numOpenBoxes, numOfMoves, onReset, onToggle }) => {
 
     return (
       <React.Fragment>
-        {!(numOpenBoxes === 16) ? (
+        {!(numOpenBoxes === 2) ? (
           <div className="game-container">{renderedBoxes}</div>
         ) : (
           <React.Fragment>

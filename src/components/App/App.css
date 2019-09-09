@@ -17,3 +17,9 @@
   font-size: 1.0em;
   font-family: 'Courier New', Courier, monospace;
 }
+
+.game-description {
+  width: 15em;
+  font-size: 0.8em;
+  text-align: justify;
+}

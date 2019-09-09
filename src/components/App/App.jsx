@@ -112,6 +112,13 @@ class App extends Component {
           onReset={this.handleReset}
           numOfMoves={numOfMoves}
         />
+        <div className="game-description">
+          <p>
+            Select two similar cards from the 16 boxes available. Try to
+            remember positions of cards as you open and finish game in the
+            lowest number of moves. Goodluck!!
+          </p>
+        </div>
       </div>
     );
   }
