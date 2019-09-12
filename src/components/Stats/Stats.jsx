@@ -11,9 +11,11 @@ const Stats = ({numOfMoves, onReset}) => {
           <i className="far fa-star"></i>
         </span>
         <span className="game-stats__time">
-          <span id="hours"></span>
+          <span id="hours">00</span>
           :
-          <span id="minutes"></span>:<span id="seconds"></span>
+          <span id="minutes">00</span>
+          :
+          <span id="seconds">00</span>
         </span>
         <span className="game-stats__moves">{numOfMoves} Moves</span>
         <span className="game-stats__replay" onClick={onReset}>

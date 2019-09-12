@@ -17,45 +17,41 @@ class App extends Component {
   };
 
   updateGame = (previousGuessedBox, openBox) => {
-      const boxes = [...this.state.boxes];
-      const indexOpenBox = boxes.indexOf(openBox);
-      boxes[indexOpenBox].open = false;
-      if (previousGuessedBox) {
-        const indexPrevBox = boxes.indexOf(previousGuessedBox);
-        boxes[indexPrevBox].open = false;
+    const boxes = [...this.state.boxes];
+    const indexOpenBox = boxes.indexOf(openBox);
+    boxes[indexOpenBox].open = false;
+    if (previousGuessedBox) {
+      const indexPrevBox = boxes.indexOf(previousGuessedBox);
+      if (indexPrevBox){
+      boxes[indexPrevBox].open = false;
       }
-      this.setState({
-        boxes,
-        previousGuessedBox: null
-      });
-    
+    }
+    this.setState({
+      boxes,
+      previousGuessedBox: null
+    });
   };
 
-  checkIfSimilarBoxOpen = (openBox) => {
+  checkIfSimilarBoxOpen = openBox => {
     const previousGuessedBox = this.state.previousGuessedBox;
 
     // If game has started, check for similar box else start game
     if (this.state.startGame) {
       // Look for box with similar icon and check if it's open
-      const openStateBoxes = this.state.boxes.filter(box=>
-        (box.id !== openBox.id) && (box.class === openBox.class) && box.open
-      )
+      const openStateBoxes = this.state.boxes.filter(
+        box => box.id !== openBox.id && box.class === openBox.class && box.open
+      );
       // If it isnt open, close both boxes
-      if (openStateBoxes === undefined || openStateBoxes.length === 0){
-        this.updateGame(
-          previousGuessedBox, 
-          openBox
-          );
+      if (openStateBoxes === undefined || openStateBoxes.length === 0) {
+        this.updateGame(previousGuessedBox, openBox);
       }
     } else {
-      this.setState(
-        {
-          startGame : true,
-          previousGuessedBox : openBox,
-        });
+      this.setState({
+        startGame: true,
+        previousGuessedBox: openBox
+      });
     }
-    
-  }
+  };
 
   getNumOpenBoxes = boxes => {
     const openBoxes = boxes.filter(box => box.open === true);
@@ -85,10 +81,8 @@ class App extends Component {
       firstGuessedBox: false,
       numOfMoves: 0,
       numOpenBoxes: 0,
-      timerId: timer,
-      startGame: false,
+      startGame: false
     });
-    
   };
 
   handleGameOver = () => {
@@ -96,7 +90,8 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({timerId : timer}); // Start time
+    // Start time
+    this.startGame && this.setState({ timerId: timer });
   }
 
   render() {
@@ -112,16 +107,18 @@ class App extends Component {
           onReset={this.handleReset}
           numOfMoves={numOfMoves}
         />
-        <div className="game-description">
-          <p>
-            Select two similar cards from the 16 boxes available. Try to
-            remember positions of cards as you open and finish game in the
-            lowest number of moves. Goodluck!!
-          </p>
-        </div>
+        {!(numOpenBoxes === 16) && (
+          <div className="game-description">
+            <p>
+              Select two similar cards from the 16 boxes available. Try to
+              remember positions of cards as you open and finish game in the
+              lowest number of moves. Goodluck!!
+            </p>
+          </div>
+        )}
       </div>
     );
   }
 }
 
-export default  App;
+export default App;
