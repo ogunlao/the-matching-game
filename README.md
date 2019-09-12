@@ -1,8 +1,7 @@
 # The Matching Game
 
-Plat Game at
-
+Play Game at
 
 [https://the-matching-game.netlify.com/](https://the-matching-game.netlify.com/)
 
-## React App
+## App created with create-react-app
